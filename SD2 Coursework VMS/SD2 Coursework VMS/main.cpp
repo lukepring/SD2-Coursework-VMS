@@ -6,6 +6,9 @@
 //
 
 #include <iostream>
+#include "include/appointments.hpp"
+#include "include/owners.hpp"
+#include "include/pets.hpp"
 
 int main(int argc, const char * argv[]) {
     std::cout << "Hello, World!\n";
