@@ -26,7 +26,7 @@ VMSDatabase::VMSDatabase() {
        sqlite3_close(db);
 }
 
-string VMSDatabase::getData(string request) {
+std::vector<std::vector<std::string>> VMSDatabase::getData(string request) {
     sqlite3 *db;
     char *zErrMsg = 0;
     int rc;
@@ -49,7 +49,7 @@ string VMSDatabase::getData(string request) {
             sql = "SELECT * FROM \"Staff Management\";";
         } else {
             fprintf(stderr, "Invalid request\n");
-            return "";
+            return results;
         }
 
         // Clear previous results before running the query
@@ -61,22 +61,22 @@ string VMSDatabase::getData(string request) {
             fprintf(stderr, "SQL error: %s\n", zErrMsg);
             sqlite3_free(zErrMsg);
         } else {
-            fprintf(stdout, "Operation done successfully\n");
+            //fprintf(stdout, "Operation done successfully\n");
 
             // Print the retrieved data
-            if (!results.empty()) {
-                for (const auto& row : results) {
-                    for (const auto& col : row) {
-                        std::cout << col << " | ";
-                    }
-                    std::cout << std::endl;
-                }
-            } else {
-                std::cout << "No results found.\n";
-            }
+//            if (!results.empty()) {
+//                for (const auto& row : results) {
+//                    for (const auto& col : row) {
+//                        std::cout << col << " | ";
+//                    }
+//                    std::cout << std::endl;
+//                }
+//            } else {
+//                std::cout << "No results found.\n";
+//            }
         }
     }
     sqlite3_close(db);
 
-    return results.empty() ? "" : results[0][0];  // Return first result (or empty if no data)
+    return results;  // Return first result (or empty if no data)
 }

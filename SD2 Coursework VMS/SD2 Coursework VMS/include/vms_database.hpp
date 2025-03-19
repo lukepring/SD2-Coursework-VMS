@@ -34,6 +34,6 @@ public:
     
     VMSDatabase();
     
-    string getData(string request);
+    std::vector<std::vector<std::string>> getData(string request);
     
 };
