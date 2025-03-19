@@ -24,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		1DB9BEF32D8AB99A00713D3C /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		1DB9BF012D8B16B300713D3C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		1DCE57E72D7E7F0A00559555 /* SD2 Coursework VMS */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "SD2 Coursework VMS"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -58,6 +59,7 @@
 		1DCE57DE2D7E7F0A00559555 = {
 			isa = PBXGroup;
 			children = (
+				1DB9BF012D8B16B300713D3C /* .gitignore */,
 				1DCE57E92D7E7F0A00559555 /* SD2 Coursework VMS */,
 				1DB9BEF22D8AB99A00713D3C /* Frameworks */,
 				1DCE57E82D7E7F0A00559555 /* Products */,
@@ -108,6 +110,7 @@
 				TargetAttributes = {
 					1DCE57E62D7E7F0A00559555 = {
 						CreatedOnToolsVersion = 16.2;
+						LastSwiftMigration = 1620;
 					};
 				};
 			};
@@ -259,20 +262,25 @@
 		1DCE57EF2D7E7F0A00559555 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8Z6Y496HX9;
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
 		1DCE57F02D7E7F0A00559555 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8Z6Y496HX9;
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
