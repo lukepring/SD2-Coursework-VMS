@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1DB9BEF42D8AB99A00713D3C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB9BEF32D8AB99A00713D3C /* libsqlite3.tbd */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		1DCE57E52D7E7F0A00559555 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -19,6 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1DB9BEF32D8AB99A00713D3C /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		1DCE57E72D7E7F0A00559555 /* SD2 Coursework VMS */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "SD2 Coursework VMS"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -35,16 +40,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DB9BEF42D8AB99A00713D3C /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1DB9BEF22D8AB99A00713D3C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1DB9BEF32D8AB99A00713D3C /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1DCE57DE2D7E7F0A00559555 = {
 			isa = PBXGroup;
 			children = (
 				1DCE57E92D7E7F0A00559555 /* SD2 Coursework VMS */,
+				1DB9BEF22D8AB99A00713D3C /* Frameworks */,
 				1DCE57E82D7E7F0A00559555 /* Products */,
 			);
 			sourceTree = "<group>";
