@@ -8,6 +8,7 @@
 #include <sqlite3.h>
 #include <iostream>
 #include <filesystem>
+#include <vector>
 
 namespace fs = std::filesystem;
 
@@ -17,24 +18,14 @@ class VMSDatabase {
 private:
     string db_path = "";
     
-    static string output[9];
-    
-    static int callback(void *data, int argc, char **argv, char **azColName){
-//        int i;
-//        string output[9] = [];
-//        fprintf(stderr, "%s: ", (const char*)data);
-//        for(i = 0; i<argc; i++){
-//            printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-//            
-//        }
-//        printf("\n");
-//        return 0;
-        
-        int i;
-        for(i = 0; i<argc; i++){
-            output[i] = argv[i] ? argv[i] : "NULL";
+    static vector<vector<string>> results; // Stores all query results
+
+    static int callback(void *data, int argc, char **argv, char **azColName) {
+        vector<string> row;
+        for (int i = 0; i < argc; i++) {
+            row.push_back(argv[i] ? argv[i] : "NULL");
         }
-        printf("\n");
+        results.push_back(row); // Store each row properly
         return 0;
     }
     

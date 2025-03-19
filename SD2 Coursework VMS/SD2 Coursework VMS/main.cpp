@@ -16,6 +16,7 @@ using namespace std;
 int main(int argc, const char * argv[]) {
     std::cout << "VMS v1.0.0\n---------\n";
     VMSDatabase VMSDatabase;
+    VMSDatabase.getData("pets");
     VMSDatabase.getData("owners");
     return 0;
 }
