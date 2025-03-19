@@ -9,8 +9,12 @@
 #include "include/appointments.hpp"
 #include "include/owners.hpp"
 #include "include/pets.hpp"
+#include "include/vms_database.hpp"
+
+using namespace std;
 
 int main(int argc, const char * argv[]) {
     std::cout << "Hello, World!\n";
+    VMSDatabase database;
     return 0;
 }
