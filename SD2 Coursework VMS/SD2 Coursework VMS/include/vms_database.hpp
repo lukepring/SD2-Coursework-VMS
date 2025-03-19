@@ -16,15 +16,29 @@ using namespace std;
 class VMSDatabase {
 private:
     string db_path = "";
+    
+    static string output[9];
+    
     static int callback(void *data, int argc, char **argv, char **azColName){
+//        int i;
+//        string output[9] = [];
+//        fprintf(stderr, "%s: ", (const char*)data);
+//        for(i = 0; i<argc; i++){
+//            printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+//            
+//        }
+//        printf("\n");
+//        return 0;
+        
         int i;
-        fprintf(stderr, "%s: ", (const char*)data);
         for(i = 0; i<argc; i++){
-            printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+            output[i] = argv[i] ? argv[i] : "NULL";
         }
         printf("\n");
         return 0;
     }
+    
+    
 public:
     
     VMSDatabase();

@@ -7,7 +7,27 @@
 
 #include "../include/vms_database.hpp"
 
+string VMSDatabase::output[9];
+
 VMSDatabase::VMSDatabase() {
+    sqlite3 *db;
+       char *zErrMsg = 0;
+       int rc;
+
+       db_path = (fs::path(__FILE__).parent_path().parent_path() / "db" / "vms.db").string();
+    
+       rc = sqlite3_open(db_path.c_str(), &db);
+
+       if( rc ) {
+          fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db), "Please restart the program and ensure the database is in the correct location. (/db/vms.db)");
+       } else {
+          fprintf(stderr, "Database connected successfully!\n---------\n");
+       }
+       sqlite3_close(db);
+}
+
+string VMSDatabase::getData(string request) {
+    
     sqlite3 *db;
        char *zErrMsg = 0;
        int rc;
@@ -19,7 +39,7 @@ VMSDatabase::VMSDatabase() {
        rc = sqlite3_open(db_path.c_str(), &db);
 
        if( rc ) {
-          fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+           fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db), "Please restart the program and ensure the database is in the correct location. (/db/vms.db)");
           
        } else {
           fprintf(stderr, "Database connected successfully!\n---------\n");
@@ -36,8 +56,6 @@ VMSDatabase::VMSDatabase() {
            
        }
        sqlite3_close(db);
-}
-
-string VMSDatabase::getData(string request) {
+    
     return "";
 }
