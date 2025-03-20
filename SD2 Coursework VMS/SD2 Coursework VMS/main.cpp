@@ -17,7 +17,7 @@ int main(int argc, const char * argv[]) {
     std::cout << "VMS v1.0.0\n---------\n";
     VMSDatabase VMSDatabase;
 
-    std::cout << VMSDatabase.getData("pets")[1][1] << std::endl;
+    std::cout << VMSDatabase.getData("pets")[0][2] << std::endl;
     
     return 0;
     
