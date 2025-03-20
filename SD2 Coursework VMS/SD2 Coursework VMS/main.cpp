@@ -19,6 +19,8 @@ int main(int argc, const char * argv[]) {
 
     std::cout << VMSDatabase.getData("pets")[0][2] << std::endl;
     
+    VMSDatabase.printTable("appointments");
+    
     return 0;
     
 }

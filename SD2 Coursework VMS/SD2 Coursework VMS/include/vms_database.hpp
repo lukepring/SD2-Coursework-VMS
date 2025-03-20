@@ -32,8 +32,9 @@ private:
     
 public:
     
+    // Database function declarations
     VMSDatabase();
-    
     std::vector<std::vector<std::string>> getData(string request);
+    void printTable(string request);
     
 };
