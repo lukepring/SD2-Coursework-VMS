@@ -21,9 +21,9 @@ VMSDatabase::VMSDatabase() {
        rc = sqlite3_open(db_path.c_str(), &db);
 
        if( rc ) {
-          fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db), "Please restart the program and ensure the database is in the correct location. (/db/vms.db)");
+          fprintf(stderr, "VMSDatabase - Can't open database: %s\n", sqlite3_errmsg(db), "Please restart the program and ensure the database is in the correct location. (/db/vms.db)");
        } else {
-          fprintf(stderr, "Database connected successfully!\n---------\n");
+          fprintf(stderr, "VMSDatabase - Database connected successfully!\n---------\n");
        }
        sqlite3_close(db);
 }
@@ -39,7 +39,7 @@ std::vector<std::vector<std::string>> VMSDatabase::getData(string request) {
     rc = sqlite3_open(db_path.c_str(), &db);
 
     if (rc) {
-        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+        fprintf(stderr, "VMSDatabase - Can't open database: %s\n", sqlite3_errmsg(db));
     } else {
         if (request == "appointments") {
             sql = "SELECT * FROM \"Appointment Management\";";
@@ -50,7 +50,7 @@ std::vector<std::vector<std::string>> VMSDatabase::getData(string request) {
         } else if (request == "staff") {
             sql = "SELECT * FROM \"Staff Management\";";
         } else {
-            fprintf(stderr, "Invalid request\n");
+            fprintf(stderr, "VMSDatabase - Invalid request\n");
             return results;
         }
 
@@ -60,14 +60,14 @@ std::vector<std::vector<std::string>> VMSDatabase::getData(string request) {
         rc = sqlite3_exec(db, sql.c_str(), callback, (void*)data, &zErrMsg);
         
         if (rc != SQLITE_OK) {
-            fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            fprintf(stderr, "VMSDatabase - SQL error: %s\n", zErrMsg);
             sqlite3_free(zErrMsg);
         } else {
             //fprintf(stdout, "Operation done successfully\n");
 
             // Print the retrieved data
             if (results.empty()) {
-                std::cout << "No results found.\n";
+                std::cout << "VMSDatabase - No results found.\n";
             }
         }
     }
@@ -87,7 +87,7 @@ void VMSDatabase::printTable(string request) {
     rc = sqlite3_open(db_path.c_str(), &db);
 
     if (rc) {
-        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+        fprintf(stderr, "VMSDatabase - Can't open database: %s\n", sqlite3_errmsg(db));
     } else {
         if (request == "appointments") {
             sql = "SELECT * FROM \"Appointment Management\";";
@@ -107,7 +107,7 @@ void VMSDatabase::printTable(string request) {
         rc = sqlite3_exec(db, sql.c_str(), callback, (void*)data, &zErrMsg);
         
         if (rc != SQLITE_OK) {
-            fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            fprintf(stderr, "VMSDatabase - SQL error: %s\n", zErrMsg);
             sqlite3_free(zErrMsg);
         } else {
             //fprintf(stdout, "Operation done successfully\n");
@@ -121,9 +121,50 @@ void VMSDatabase::printTable(string request) {
                     std::cout << std::endl;
                 }
             } else {
-                std::cout << "No results found.\n";
+                std::cout << "VMSDatabase - No results found.\n";
             }
         }
     }
     sqlite3_close(db);
+}
+
+void VMSDatabase::addRecord(string request, std::vector<std::string> fields) {
+    sqlite3 *db;
+    char *zErrMsg = 0;
+    int rc;
+    string sql;
+    const char* data = "Callback function called";
+
+    db_path = (fs::path(__FILE__).parent_path().parent_path() / "db" / "vms.db").string();
+    rc = sqlite3_open(db_path.c_str(), &db);
+
+    if (rc) {
+        fprintf(stderr, "VMSDatabase - Can't open database: %s\n", sqlite3_errmsg(db));
+    } else {
+        if (request == "pets") {
+            sql = "INSERT INTO \"Pet Management\" (Name, Breed, Age, MedicalHistory, VaccinationStatus, OwnerID) VALUES (\"" + fields[0] + "\", \"" + fields[1] + "\", " + fields[2] + ", \"" + fields[3] + "\", " + fields[4] + ", " + fields[5] + ");";
+        } else if (request == "owners") {
+            sql = "INSERT INTO \"Owner Management\" (Name, Address, PhoneNumber, Email) VALUES (\"" + fields[0] + "\", \"" + fields[1] + "\", \"" + fields[2] + "\", \"" + fields[3] + "\");";
+        } else if (request == "appointments") {
+            sql = "INSERT INTO \"Appointment Management\" (DateTime, AppointmentDetails, PetID, OwnerID) VALUES (\"" + fields[0] + "\", \"" + fields[1] + "\", " + fields[2] + ", " + fields[3] + ");";
+        } else if (request == "staff") {
+            sql = "INSERT INTO \"Staff Management\" (Type, AccessLevel, Name, Passcode) VALUES (\"" + fields[0] + "\", " + fields[1] + ", \"" + fields[2] + "\", " + fields[3] + ");";
+        } else {
+            fprintf(stderr, "VMSDatabase - Invalid request\n");
+            return;
+        }
+
+        // Clear previous results before running the query
+        results.clear();
+
+        rc = sqlite3_exec(db, sql.c_str(), callback, (void*)data, &zErrMsg);
+        
+        if (rc != SQLITE_OK) {
+            fprintf(stderr, "VMSDatabase - SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        }
+    }
+    sqlite3_close(db);
+
+    return;
 }

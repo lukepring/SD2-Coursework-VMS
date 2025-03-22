@@ -19,7 +19,9 @@ int main(int argc, const char * argv[]) {
 
     std::cout << VMSDatabase.getData("pets")[0][2] << std::endl;
     
-    VMSDatabase.printTable("appointments");
+    VMSDatabase.printTable("owners");
+    
+    // VMSDatabase.addRecord("owners", {"Roger", "12 Lane Street, London", "07365287615", "roger@mail.org"});
     
     return 0;
     
