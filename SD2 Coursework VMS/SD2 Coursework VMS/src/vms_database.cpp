@@ -168,3 +168,44 @@ void VMSDatabase::addRecord(string request, std::vector<std::string> fields) {
 
     return;
 }
+
+void VMSDatabase::deleteRecord(string request, int id) {
+    sqlite3 *db;
+    char *zErrMsg = 0;
+    int rc;
+    string sql;
+    const char* data = "Callback function called";
+
+    db_path = (fs::path(__FILE__).parent_path().parent_path() / "db" / "vms.db").string();
+    rc = sqlite3_open(db_path.c_str(), &db);
+
+    if (rc) {
+        fprintf(stderr, "VMSDatabase - Can't open database: %s\n", sqlite3_errmsg(db));
+    } else {
+        if (request == "pets") {
+            sql = "DELETE FROM \"Pet Management\" WHERE PetID = " + std::to_string(id);
+        } else if (request == "owners") {
+            sql = "DELETE FROM \"Owner Management\" WHERE OwnerID = " + std::to_string(id);
+        } else if (request == "appointments") {
+            sql = "DELETE FROM \"Appointment Management\" WHERE AppointmentID = " + std::to_string(id);
+        } else if (request == "staff") {
+            sql = "DELETE FROM \"Staff Management\" WHERE StaffID = " + std::to_string(id);
+        } else {
+            fprintf(stderr, "VMSDatabase - Invalid request\n");
+            return;
+        }
+
+        // Clear previous results before running the query
+        results.clear();
+
+        rc = sqlite3_exec(db, sql.c_str(), callback, (void*)data, &zErrMsg);
+        
+        if (rc != SQLITE_OK) {
+            fprintf(stderr, "VMSDatabase - SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        }
+    }
+    sqlite3_close(db);
+
+    return;
+}

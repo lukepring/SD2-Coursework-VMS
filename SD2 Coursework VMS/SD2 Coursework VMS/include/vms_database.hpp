@@ -37,6 +37,7 @@ public:
     std::vector<std::vector<std::string>> getData(string request);
     void printTable(string request);
     void addRecord(string request, std::vector<std::string> fields);
+    void deleteRecord(string request, int id);
     
 };
 
