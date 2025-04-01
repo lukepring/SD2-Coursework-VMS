@@ -16,6 +16,34 @@ using namespace std;
 int main(int argc, const char * argv[]) {
     std::cout << "VMS v1.0.0\n---------\n";
     VMSDatabase VMSDatabase;
+    
+    string username;
+    string password;
+    int role;
+    
+    cout << "Enter username: ";
+    cin >> username;
+    
+    cout << "Enter password: ";
+    cin >> password;
+    
+    cout << "Select your role:\n";
+    cout << "1. Veterinarian\n";
+    cout << "2. Admin\n";
+    cout << "1. Staff\n";
+    cout << "Enter role number: ";
+    cin >> role;
+    
+    if (role == 1) {
+        cout << "Logged in as Veterinarian" << endl;
+    } else if (role == 2) {
+        cout << "Logged in as Admin" << endl;
+        
+    } else if (role == 3) {
+        cout << "Logged in as Staff" << endl;
+    } else {
+        cout << "Invalid role selected." << endl;
+    }
 
     std::cout << VMSDatabase.getData("pets")[0][2] << std::endl;
     
