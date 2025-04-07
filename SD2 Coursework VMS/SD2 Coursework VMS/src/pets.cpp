@@ -2,7 +2,7 @@
 //  pets.cpp
 //  SD2 Coursework VMS
 //
-//  Created by Luke Pring on 15/03/2025.
+//  Written by Jack Turner.
 //
 
 #include "../include/pets.hpp"
