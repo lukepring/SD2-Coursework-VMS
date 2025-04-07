@@ -38,7 +38,6 @@ void displayMainMenu() {
     cout << "1. Manage Pets\n";
     cout << "2. Manage Owners (Coming Soon)\n";
     cout << "3. Manage Appointments (Coming Soon)\n";
-    cout << "4. Billing & Payments (Coming Soon)\n";
     cout << "0. Exit\n";
     cout << "=============================\n";
     cout << "Enter your choice: ";
@@ -63,10 +62,6 @@ int main() {
 
             case 3:
                 cout << "\n[!] Appointment system not implemented yet.\n\n";
-                break;
-
-            case 4:
-                cout << "\n[!] Billing functionality not implemented yet.\n\n";
                 break;
 
             case 0:
