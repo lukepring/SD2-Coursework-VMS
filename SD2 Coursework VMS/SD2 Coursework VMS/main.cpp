@@ -2,7 +2,7 @@
 //  main.cpp
 //  SD2 Coursework VMS
 //
-//  Created by Luke Pring & Jack Turner on 10/03/2025.
+//  Written by Luke Pring & Jack Turner.
 //
 
 #include <iostream>
