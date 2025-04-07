@@ -2,7 +2,7 @@
 //  pets.hpp
 //  SD2 Coursework VMS
 //
-//  Created by Luke Pring on 15/03/2025.
+//  Written by Jack Turner.
 //
 
 #ifndef PETS_HPP
