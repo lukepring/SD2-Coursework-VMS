@@ -2,7 +2,7 @@
 //  vms_database.hpp
 //  SD2 Coursework VMS
 //
-//  Created by Luke Pring on 19/03/2025.
+//  Written by Luke Pring.
 //
 
 #include <sqlite3.h>
