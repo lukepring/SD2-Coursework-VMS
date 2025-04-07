@@ -2,14 +2,7 @@
 //  owners.hpp
 //  SD2 Coursework VMS
 //
-//  Created by Luke Pring on 15/03/2025.
-//
-
-//
-//  pets.hpp
-//  SD2 Coursework VMS
-//
-//  Created by Luke Pring on 15/03/2025.
+//  Written by Oluwatobi Obafemi.
 //
 
 #ifndef OWNERS_HPP
