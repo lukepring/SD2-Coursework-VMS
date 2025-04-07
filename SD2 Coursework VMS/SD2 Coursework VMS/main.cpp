@@ -13,37 +13,9 @@
 
 using namespace std;
 
-int main(int argc, const char * argv[]) {
+/*int main(int argc, const char * argv[]) {
     std::cout << "VMS v1.0.0\n---------\n";
     VMSDatabase VMSDatabase;
-    
-    string username;
-    string password;
-    int role;
-    
-    cout << "Enter username: ";
-    cin >> username;
-    
-    cout << "Enter password: ";
-    cin >> password;
-    
-    cout << "Select your role:\n";
-    cout << "1. Veterinarian\n";
-    cout << "2. Admin\n";
-    cout << "1. Staff\n";
-    cout << "Enter role number: ";
-    cin >> role;
-    
-    if (role == 1) {
-        cout << "Logged in as Veterinarian" << endl;
-    } else if (role == 2) {
-        cout << "Logged in as Admin" << endl;
-        
-    } else if (role == 3) {
-        cout << "Logged in as Staff" << endl;
-    } else {
-        cout << "Invalid role selected." << endl;
-    }
 
     std::cout << VMSDatabase.getData("pets")[0][2] << std::endl;
     
@@ -57,4 +29,56 @@ int main(int argc, const char * argv[]) {
     
     return 0;
     
+}*/
+
+void displayMainMenu() {
+    cout << "=============================\n";
+    cout << " Veterinary Management System\n";
+    cout << "=============================\n";
+    cout << "1. Manage Pets\n";
+    cout << "2. Manage Owners (Coming Soon)\n";
+    cout << "3. Manage Appointments (Coming Soon)\n";
+    cout << "4. Billing & Payments (Coming Soon)\n";
+    cout << "0. Exit\n";
+    cout << "=============================\n";
+    cout << "Enter your choice: ";
+}
+
+int main() {
+    int choice;
+
+    do {
+        displayMainMenu();
+        cin >> choice;
+        cin.ignore(); // to clear newline left in buffer
+
+        switch (choice) {
+            case 1:
+                displayPetMenu();
+                break;
+
+            case 2:
+                cout << "\n[!] Owner management not implemented yet.\n\n";
+                break;
+
+            case 3:
+                cout << "\n[!] Appointment system not implemented yet.\n\n";
+                break;
+
+            case 4:
+                cout << "\n[!] Billing functionality not implemented yet.\n\n";
+                break;
+
+            case 0:
+                cout << "Exiting VMS. Goodbye!\n";
+                break;
+
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+
+        cout << endl;
+    } while (choice != 0);
+
+    return 0;
 }
