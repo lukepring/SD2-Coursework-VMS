@@ -1,6 +1,11 @@
 #include "../include/owners.hpp"
-#include 
+#include "../include/vms_database.hpp"
+#include <iostream>
+#include <fstream>
 
+using namespace std;
+
+VMSDatabase db;
 
 void owner_management::display_menu() {
 
