@@ -1,3 +1,10 @@
+//
+//  owners.cpp
+//  SD2 Coursework VMS
+//
+//  Written by Oluwatobi Obafemi.
+//
+
 #include "../include/owners.hpp"
 #include "../include/vms_database.hpp"
 #include <iostream>
