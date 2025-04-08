@@ -14,8 +14,6 @@ using namespace std;
 
 VMSDatabase db;
 
-Appointment::Appointment() {}
-
 void appointmentMenu() {
     Appointment appointment;
     int choice;
