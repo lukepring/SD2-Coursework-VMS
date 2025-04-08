@@ -7,12 +7,11 @@
 
 #include "../include/pets.hpp"
 #include "../include/vms_database.hpp"
+#include "../include/externals.hpp"
 #include <iostream>
 #include <fstream>
 
 using namespace std;
-
-VMSDatabase db;
 
 // Display Menu
 void displayPetMenu() {
