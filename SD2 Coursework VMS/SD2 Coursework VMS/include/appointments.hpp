@@ -2,6 +2,23 @@
 //  appointments.cpp
 //  SD2 Coursework VMS
 //
-//  Created by Luke Pring on 15/03/2025.
+//  Written by Jack Turner.
 //
 
+#ifndef APPOINTMENTS_HPP
+#define APPOINTMENTS_HPP
+
+#include <string>
+#include "../include/vms_database.hpp"
+
+class Appointment {
+public:
+    Appointment();
+    void appointmentMenu();
+    void scheduleAppointment();
+    void modifyAppointment();
+    void removeAppointment();
+    void displayAppointments();
+};
+
+#endif
