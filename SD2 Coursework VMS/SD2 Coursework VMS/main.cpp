@@ -35,6 +35,18 @@ void displayMainMenu() {
     cout << "=============================\n";
     cout << " Veterinary Management System\n";
     cout << "=============================\n";
+    
+    // User Roles / Login
+    
+    string nameInput = "";
+    string passwordInput = "";
+    
+    cout << "Name: ";
+    cin >> nameInput;
+    
+    cout << "Password: ";
+    cin >> passwordInput;
+    
     cout << "1. Manage Pets\n";
     cout << "2. Manage Owners (Coming Soon)\n";
     cout << "3. Manage Appointments (Coming Soon)\n";

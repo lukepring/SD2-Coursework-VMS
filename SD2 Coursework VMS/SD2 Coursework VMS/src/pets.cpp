@@ -129,7 +129,7 @@ void updatePet() {
         }
     }
     cout << "Pet ID not found.\n";
-}
+} 
 
 // Remove Pet
 void removePet() {
