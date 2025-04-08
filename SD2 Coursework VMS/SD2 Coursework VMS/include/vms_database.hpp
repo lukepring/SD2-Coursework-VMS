@@ -5,6 +5,9 @@
 //  Written by Luke Pring.
 //
 
+#ifndef VMS_DATABASE_HPP
+#define VMS_DATABASE_HPP
+
 #include <sqlite3.h>
 #include <iostream>
 #include <filesystem>
@@ -41,3 +44,4 @@ public:
     
 };
 
+#endif
