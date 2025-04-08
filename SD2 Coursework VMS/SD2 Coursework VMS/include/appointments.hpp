@@ -11,14 +11,10 @@
 #include <string>
 #include "../include/vms_database.hpp"
 
-class Appointment {
-public:
-    Appointment();
-    void appointmentMenu();
-    void scheduleAppointment();
-    void modifyAppointment();
-    void removeAppointment();
-    void displayAppointments();
-};
+void appointmentMenu();
+void scheduleAppointment();
+void modifyAppointment();
+void removeAppointment();
+void displayAppointments();
 
 #endif
