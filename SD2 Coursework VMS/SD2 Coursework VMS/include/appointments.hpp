@@ -9,12 +9,25 @@
 #define APPOINTMENTS_HPP
 
 #include <string>
-#include "../include/vms_database.hpp"
+#include <vector>
+using namespace std;
+ 
+struct Appointment {
+    int id;
+    std::string dateTime;
+    std::string details;
+    int petID;
+    int ownerID;
+    std::string status;
+};
+ 
+ void appointmentMenu();
+ void scheduleAppointment();
+ void modifyAppointment();
+ void removeAppointment();
+ void displayAppointments();
+ 
+ #endif
 
-void appointmentMenu();
-void scheduleAppointment();
-void modifyAppointment();
-void removeAppointment();
-void displayAppointments();
 
-#endif
+
