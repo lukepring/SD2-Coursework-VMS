@@ -7,12 +7,11 @@
 
 #include "../include/appointments.hpp"
 #include "../include/vms_database.hpp"
+#include "../include/externals.hpp"
 #include <iostream>
 #include <iomanip>
 
 using namespace std;
-
-VMSDatabase db;
 
 void appointmentMenu() {
     Appointment appointment;
@@ -31,16 +30,16 @@ void appointmentMenu() {
 
         switch (choice) {
             case 1:
-                appointment.scheduleAppointment();
+                scheduleAppointment();
                 break;
             case 2:
-                appointment.modifyAppointment();
+                modifyAppointment();
                 break;
             case 3:
-                appointment.removeAppointment();
+                removeAppointment();
                 break;
             case 4:
-                appointment.displayAppointments();
+                displayAppointments();
                 break;
             case 0:
                 std::cout << "Returning to Main Menu...\n";
@@ -51,7 +50,7 @@ void appointmentMenu() {
     } while (choice != 0);
 }
 
-void Appointment::scheduleAppointment() {
+void scheduleAppointment() {
     string date, time, details;
     int petID, ownerID;
 
@@ -82,7 +81,7 @@ void Appointment::scheduleAppointment() {
     cout << "Appointment scheduled successfully.\n";
 }
 
-void Appointment::modifyAppointment() {
+void modifyAppointment() {
     int appointmentID;
     cout << "Enter appointment ID to modify: ";
     cin >> appointmentID;
@@ -120,7 +119,7 @@ void Appointment::modifyAppointment() {
     cout << "Appointment updated.\n";
 }
 
-void Appointment::removeAppointment() {
+void removeAppointment() {
     int appointmentID;
     cout << "Enter appointment ID to remove: ";
     cin >> appointmentID;
@@ -144,7 +143,7 @@ void Appointment::removeAppointment() {
     }
 }
 
-void Appointment::displayAppointments() {
+void displayAppointments() {
     string query = "SELECT * FROM `Appointment Management`;";
     auto results = db.getData(query);
 
