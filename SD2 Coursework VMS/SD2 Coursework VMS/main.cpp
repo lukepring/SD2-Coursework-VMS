@@ -17,12 +17,9 @@ VMSDatabase db;
 
 string name;
 int accessLevel;
+string type;
 
-void displayMainMenu() {
-    cout << "=============================\n";
-    cout << " Veterinary Management System\n";
-    cout << "=============================\n";
-    
+void authentication() {
     // User Roles / Login (Luke & Richard)
     
     bool loggedIn = false;
@@ -46,7 +43,7 @@ void displayMainMenu() {
                 if(passwordInput == record[4]) {
                     name = record[3];
                     accessLevel = stoi(record[2]);
-                    cout << "=============================\nWelcome, " << name << "\nAccess Level: " << record[1] << "\n";
+                    type = record[1];
                     loggedIn = true;
                     break;
                 } else {
@@ -55,8 +52,14 @@ void displayMainMenu() {
             }
         }
     }
+}
+
+void displayMainMenu() {
+    cout << "=============================\n";
+    cout << "Veterinary Management System\n";
+    cout << "=============================\n";
     
-    
+    cout << "Welcome, " << name << " (" << type << ")!\n";
     // Menu (Jack)
 
     cout << "=============================\n";
@@ -69,6 +72,13 @@ void displayMainMenu() {
 }
 
 int main() {
+    
+    cout << "=============================\n";
+    cout << "Please log in.\n";
+    cout << "=============================\n";
+    
+    authentication();
+    
     int choice;
     
 
@@ -83,11 +93,23 @@ int main() {
                 break;
 
             case 2:
-                cout << "\n[!] Owner management not implemented yet.\n\n";
+                if(accessLevel > 1) {
+                    cout << "\n[!] Owner management not implemented yet.\n\n";
+                } else {
+                    cout << "=============================\n";
+                    cout << "Access denied for " << name << " at access level " << accessLevel;
+                }
+                
                 break;
 
             case 3:
-                cout << "\n[!] Appointment system not implemented yet.\n\n";
+                if(accessLevel > 1) {
+                    cout << "\n[!] Appointment system not implemented yet.\n\n";
+                } else {
+                    cout << "=============================\n";
+                    cout << "Access denied for " << name << " at access level " << accessLevel;
+                }
+                
                 break;
 
             case 0:

@@ -23,7 +23,7 @@ VMSDatabase::VMSDatabase() {
        if( rc ) {
           fprintf(stderr, "VMSDatabase - Can't open database: %s\n", sqlite3_errmsg(db), "Please restart the program and ensure the database is in the correct location. (/db/vms.db)");
        } else {
-          fprintf(stderr, "VMSDatabase - Database connected successfully!\n---------\n");
+          fprintf(stderr, "VMSDatabase - Database connected successfully!\n");
        }
        sqlite3_close(db);
 }
