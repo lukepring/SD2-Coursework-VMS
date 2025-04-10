@@ -14,6 +14,7 @@
 using namespace std;
 
 VMSDatabase db;
+owner_management owner;
 
 string name;
 int accessLevel;
@@ -94,7 +95,7 @@ int main() {
 
             case 2:
                 if(accessLevel > 1) {
-                    cout << "\n[!] Owner management not implemented yet.\n\n";
+                    owner.display_owner_menu();
                 } else {
                     cout << "=============================\n";
                     cout << "Access denied for " << name << " at access level " << accessLevel;

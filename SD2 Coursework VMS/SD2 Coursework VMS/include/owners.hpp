@@ -27,8 +27,9 @@ struct owner {
 };
 
 class owner_management {
+public:
     // Declare the pet management menu function
-    void display_menu();
+    void display_owner_menu();
     
     
     

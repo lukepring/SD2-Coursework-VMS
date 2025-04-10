@@ -14,7 +14,7 @@ using namespace std;
 
 extern VMSDatabase db;
 
-void owner_management::display_menu() {
+void owner_management::display_owner_menu() {
 
 	int choice;
 	do {
