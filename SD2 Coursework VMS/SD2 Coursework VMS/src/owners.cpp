@@ -12,7 +12,7 @@
 
 using namespace std;
 
-VMSDatabase db;
+extern VMSDatabase db;
 
 void owner_management::display_menu() {
 
@@ -22,9 +22,9 @@ void owner_management::display_menu() {
 		cout << "1. Add Owner" << endl;
 		cout << "2. view Owners" << endl;
 		cout << "3. Delete Owner" << endl;
-		cout << "4. Update Owner" << endl;
-		cout << "5. save owners to file\n" << endl;
-		cout << "6. load owners from files\n" << endl;
+//		cout << "4. Update Owner" << endl;
+		cout << "4. save owners to file\n" << endl;
+		cout << "5. load owners from files\n" << endl;
 		cout << "0. Return to main menu" << endl;
 		cout << "----------------------------------------" << endl;
 		cout << "Enter your choice: ";
@@ -47,13 +47,13 @@ void owner_management::display_menu() {
 		case 3:
 			delete_owner();
 			break;
+//		case 4:
+//			update_owner();
+//			break;
 		case 4:
-			update_owner();
-			break;
-		case 5:
 			save_owners_to_file();
 			break;
-		case 6:
+		case 5:
 			load_owners_from_file();
 			break;
 		case 0:
@@ -125,7 +125,7 @@ void owner_management::add_owner() {
 		}
 	} while (!regex_match(email, email_pattern));
 
-	vector<string> owner_data = { name, address, phone_number, email, owner_id };
+	std::vector<std::string> owner_data = { name, address, phone_number, email, to_string(owner_id) };
 	db.addRecord("owner", owner_data);
 	cout << "Owner added successfully.\n" << endl;
 }
@@ -134,7 +134,7 @@ void owner_management::view_owner() {
 
 	string term;
 	cout << "Search by owner ID or Name:"; getline(cin >> ws, term);
-	auto all_owners = db.getdata("owner");
+	auto all_owners = db.getData("owner");
 	for (auto& owner : all_owners) {
 		if (owner [0] == term || owner[1] == term) {
 			cout << "\nOwner ID: " << owner[0] << endl;
@@ -166,25 +166,25 @@ void owner_management::delete_owner() {
 	}
 }
 
-void owner_management::update_owner() {
-	string owner_id;
-	cout << "Enter the owner ID to update: "; getline(cin >> ws, owner_id);
-	cin >> owner_id;
-	char confirm;
-	cout << "Are you sure you want to update owner with ID" << owner_id << "? (y/n): ";
-	if (tolower(confirm) == 'y') {
-		db.updateRecord("pets", stoi(owner_id));
-		cout << "Owner updated successfully.\n" << endl;
-	}
-	else {
-		cout << "Update cancelled.\n" << endl;
-	}
-}
+//void owner_management::update_owner() {
+//	string owner_id;
+//	cout << "Enter the owner ID to update: "; getline(cin >> ws, owner_id);
+//	cin >> owner_id;
+//	char confirm;
+//	cout << "Are you sure you want to update owner with ID" << owner_id << "? (y/n): ";
+//	if (tolower(confirm) == 'y') {
+//		db.updateRecord("pets", stoi(owner_id));
+//		cout << "Owner updated successfully.\n" << endl;
+//	}
+//	else {
+//		cout << "Update cancelled.\n" << endl;
+//	}
+//}
 
 void owner_management::save_owners_to_file() {
 	ofstream file("owners.txt");
 	if (file.is_open()) {
-		auto all_owners = db.getdata("owner");
+		auto all_owners = db.getData("owner");
 		for (const auto& owner : all_owners) {
 			file << owner[0] << "," << owner[1] << "," << owner[2] << "," << owner[3] << "," << owner[4] << endl;
 		}
@@ -197,23 +197,23 @@ void owner_management::save_owners_to_file() {
 }
 
 void owner_management::load_owners_from_file() {
-	// Load owners from file
-	ifstream file("owners.txt");
-	if (file.is_open()) {
-		string line;
-		while (getline(file, line)) {
-			istringstream iss(line);
-			string name, address, phone_number, email;
-			int owner_id;
-			getline(iss, name, ',');
-			getline(iss, address, ',');
-			getline(iss, phone_number, ',');
-			getline(iss, email, ',');
-			iss >> owner_id;
-			vector<string> owner_data = { name, address, phone_number, email, owner_id };
-			db.addRecord("owner", owner_data);
-		}
-		file.close();
-		cout << "Owners loaded from file successfully.\n" << endl;
-	}
-    
+    // Load owners from file
+    ifstream file("owners.txt");
+    if (file.is_open()) {
+        string line;
+        while (getline(file, line)) {
+            istringstream iss(line);
+            string name, address, phone_number, email;
+            int owner_id;
+            getline(iss, name, ',');
+            getline(iss, address, ',');
+            getline(iss, phone_number, ',');
+            getline(iss, email, ',');
+            iss >> owner_id;
+            vector<string> owner_data = { name, address, phone_number, email, to_string(owner_id) };
+            db.addRecord("owner", owner_data);
+        }
+        file.close();
+        cout << "Owners loaded from file successfully.\n" << endl;
+    }
+}
