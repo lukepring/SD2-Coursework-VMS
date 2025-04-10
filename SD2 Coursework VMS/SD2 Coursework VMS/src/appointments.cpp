@@ -1,83 +1,58 @@
 //
-//  main.cpp
+//  appointments.cpp
 //  SD2 Coursework VMS
 //
 //  Written by Jack Turner.
 //
 
 #include "../include/appointments.hpp"
+#include "../include/vms_database.hpp"
+#include "../include/externals.hpp"
 #include <iostream>
-#include <fstream>
-#include <sstream>
 #include <iomanip>
-#include <algorithm>
 
 using namespace std;
 
-vector<Appointment> appointments;
-
-void loadAppointmentsFromFile() {
-    appointments.clear();
-    ifstream file("appointments.txt");
-    if (!file) return;
-
-    string line;
-    while (getline(file, line)) {
-        Appointment a;
-        stringstream ss(line);
-        string field;
-
-        getline(ss, field, ','); a.id = stoi(field);
-        getline(ss, a.dateTime, ',');
-        getline(ss, a.details, ',');
-        getline(ss, field, ','); a.petID = stoi(field);
-        getline(ss, field, ','); a.ownerID = stoi(field);
-        getline(ss, a.status, ',');
-
-        appointments.push_back(a);
-    }
-
-    file.close();
-}
-
-void saveAppointmentsToFile() {
-    ofstream file("appointments.txt");
-    for (const auto& a : appointments) {
-        file << a.id << "," << a.dateTime << "," << a.details << ","
-             << a.petID << "," << a.ownerID << "," << a.status << "\n";
-    }
-    file.close();
-}
-
 void appointmentMenu() {
-    loadAppointmentsFromFile();
+    Appointment appointment;
     int choice;
 
     do {
-        cout << "\n-------- Appointment Menu --------\n";
-        cout << "1. Schedule Appointment\n";
-        cout << "2. Modify Appointment\n";
-        cout << "3. Cancel Appointment\n";
-        cout << "4. View Appointments\n";
-        cout << "0. Return to Main Menu\n";
-        cout << "----------------------------------\n";
-        cout << "Enter choice: ";
-        cin >> choice;
+        std::cout << "\n-------- Appointment Menu --------\n";
+        std::cout << "1. Schedule Appointment\n";
+        std::cout << "2. Modify Appointment\n";
+        std::cout << "3. Cancel Appointment\n";
+        std::cout << "4. View Appointments\n";
+        std::cout << "0. Return to Main Menu\n";
+        std::cout << "----------------------------------\n";
+        std::cout << "Enter choice: ";
+        std::cin >> choice;
 
         switch (choice) {
-            case 1: scheduleAppointment(); break;
-            case 2: modifyAppointment(); break;
-            case 3: removeAppointment(); break;
-            case 4: displayAppointments(); break;
-            case 0: cout << "Returning to Main Menu...\n"; break;
-            default: cout << "Invalid choice. Please try again.\n";
+            case 1:
+                scheduleAppointment();
+                break;
+            case 2:
+                modifyAppointment();
+                break;
+            case 3:
+                removeAppointment();
+                break;
+            case 4:
+                displayAppointments();
+                break;
+            case 0:
+                std::cout << "Returning to Main Menu...\n";
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
         }
     } while (choice != 0);
 }
 
 void scheduleAppointment() {
-    Appointment a;
-    string date, time;
+    string date, time, details;
+    int petID, ownerID;
 
     cout << "Enter appointment date (YYYY-MM-DD): ";
     cin >> date;
@@ -85,18 +60,23 @@ void scheduleAppointment() {
     cin >> time;
     cin.ignore();
     cout << "Enter details for the appointment: ";
-    getline(cin, a.details);
+    getline(cin, details);
     cout << "Enter Pet ID: ";
-    cin >> a.petID;
+    cin >> petID;
     cout << "Enter Owner ID: ";
-    cin >> a.ownerID;
+    cin >> ownerID;
 
-    a.id = appointments.empty() ? 1 : appointments.back().id + 1;
-    a.dateTime = date + " " + time;
-    a.status = "scheduled";
+    vector<string> fields = {
+        "'" + date + "'",
+        "'" + time + "'",
+        "'" + details + "'",
+        to_string(petID),
+        to_string(ownerID),
+        "'scheduled'"
+    };
 
-    appointments.push_back(a);
-    saveAppointmentsToFile();
+    string query = "INSERT INTO `Appointment Management` (date, time, appointment_details, pet_id, owner_id, status) VALUES";
+    db.addRecord(query, fields);
 
     cout << "Appointment scheduled successfully.\n";
 }
@@ -106,49 +86,36 @@ void modifyAppointment() {
     cout << "Enter appointment ID to modify: ";
     cin >> appointmentID;
 
-    auto it = find_if(appointments.begin(), appointments.end(), [appointmentID](const Appointment& a) {
-        return a.id == appointmentID;
-    });
+    string query = "SELECT * FROM `Appointment Management` WHERE `Appointment ID` = " + to_string(appointmentID) + " LIMIT 1;";
+    auto result = db.getData(query);
 
-    if (it == appointments.end()) {
+    if (result.empty()) {
         cout << "Appointment not found.\n";
         return;
     }
 
     cout << "Current appointment info:\n";
-    cout << "DateTime: " << it->dateTime << ", Details: " << it->details << ", Status: " << it->status << "\n";
+    vector<string> fields = result[0];
+    cout << "Date: " << fields[1] << ", Time: " << fields[2] << ", Details: " << fields[3] << "\n";
 
     int choice;
-    cout << "What would you like to modify?\n1. Date & Time\n2. Details\n3. Status\nEnter choice: ";
+    cout << "What would you like to modify?\n1. Date\n2. Time\n3. Details\n4. Status\nEnter choice: ";
     cin >> choice;
     cin.ignore();
 
+    string newValue, column;
     switch (choice) {
-        case 1: {
-            string date, time;
-            cout << "Enter new date (YYYY-MM-DD): ";
-            cin >> date;
-            cout << "Enter new time (HH:MM): ";
-            cin >> time;
-            it->dateTime = date + " " + time;
-            break;
-        }
-        case 2: {
-            cout << "Enter new details: ";
-            getline(cin, it->details);
-            break;
-        }
-        case 3: {
-            cout << "Enter new status (e.g., scheduled, completed, cancelled): ";
-            getline(cin, it->status);
-            break;
-        }
-        default:
-            cout << "Invalid choice.\n";
-            return;
+        case 1: column = "date"; cout << "Enter new date (YYYY-MM-DD): "; break;
+        case 2: column = "time"; cout << "Enter new time (HH:MM): "; break;
+        case 3: column = "appointment_details"; cout << "Enter new details: "; break;
+        case 4: column = "status"; cout << "Enter new status: "; break;
+        default: cout << "Invalid choice.\n"; return;
     }
 
-    saveAppointmentsToFile();
+    getline(cin, newValue);
+    string updateQuery = "UPDATE `Appointment Management` SET " + column + " = '" + newValue + "' WHERE `Appointment ID` = " + to_string(appointmentID) + ";";
+    db.getData(updateQuery);
+
     cout << "Appointment updated.\n";
 }
 
@@ -157,34 +124,43 @@ void removeAppointment() {
     cout << "Enter appointment ID to remove: ";
     cin >> appointmentID;
 
-    auto it = remove_if(appointments.begin(), appointments.end(), [appointmentID](const Appointment& a) {
-        return a.id == appointmentID;
-    });
+    string query = "SELECT * FROM `Appointment Management` WHERE `Appointment ID` = " + to_string(appointmentID) + " LIMIT 1;";
+    auto result = db.getData(query);
 
-    if (it == appointments.end()) {
+    if (result.empty()) {
         cout << "Appointment not found.\n";
         return;
     }
 
-    appointments.erase(it, appointments.end());
-    saveAppointmentsToFile();
-    cout << "Appointment removed.\n";
+    cout << "Are you sure you want to delete this appointment? (y/n): ";
+    char confirm;
+    cin >> confirm;
+    if (tolower(confirm) == 'y') {
+        db.deleteRecord("Appointment Management", appointmentID);
+        cout << "Appointment removed.\n";
+    } else {
+        cout << "Operation cancelled.\n";
+    }
 }
 
 void displayAppointments() {
-    if (appointments.empty()) {
+    string query = "SELECT * FROM `Appointment Management`;";
+    auto results = db.getData(query);
+
+    if (results.empty()) {
         cout << "No appointments scheduled.\n";
         return;
     }
 
-    cout << left << setw(5) << "ID" << setw(20) << "Date & Time"
-         << setw(25) << "Details" << setw(8) << "Pet ID"
-         << setw(10) << "Owner ID" << setw(12) << "Status" << "\n";
-    cout << string(80, '-') << "\n";
+    cout << left << setw(5) << "ID" << setw(12) << "Date" << setw(8) << "Time"
+         << setw(25) << "Details" << setw(8) << "Pet ID" << setw(10)
+         << "Owner ID" << setw(12) << "Status" << endl;
+    cout << string(80, '-') << endl;
 
-    for (const auto& a : appointments) {
-        cout << left << setw(5) << a.id << setw(20) << a.dateTime
-             << setw(25) << a.details << setw(8) << a.petID
-             << setw(10) << a.ownerID << setw(12) << a.status << "\n";
+    for (auto& row : results) {
+        for (auto& col : row) {
+            cout << setw(12) << col;
+        }
+        cout << endl;
     }
 }
