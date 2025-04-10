@@ -152,8 +152,8 @@ void VMSDatabase::addRecord(string request, std::vector<std::string> fields) {
         } else if (request == "staff") {
             sql = "INSERT INTO \"Staff Management\" (Type, AccessLevel, Name, Passcode) VALUES (\"" + fields[0] + "\", " + fields[1] + ", \"" + fields[2] + "\", " + fields[3] + ");";
         } else {
-            fprintf(stderr, "VMSDatabase - Invalid request\n");
-            return;
+            sql = request;
+            fprintf(stderr, "VMSDatabase - Query\n");
         }
 
         // Clear previous results before running the query
@@ -193,8 +193,8 @@ void VMSDatabase::deleteRecord(string request, int id) {
         } else if (request == "staff") {
             sql = "DELETE FROM \"Staff Management\" WHERE StaffID = " + std::to_string(id);
         } else {
-            fprintf(stderr, "VMSDatabase - Invalid request\n");
-            return;
+            sql = request;
+            fprintf(stderr, "VMSDatabase - Query\n");
         }
 
         // Clear previous results before running the query
