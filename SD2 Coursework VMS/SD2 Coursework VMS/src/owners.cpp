@@ -47,9 +47,6 @@ void owner_management::display_owner_menu() {
 		case 3:
 			delete_owner();
 			break;
-//		case 4:
-//			update_owner();
-//			break;
 		case 4:
 			save_owners_to_file();
 			break;
@@ -73,25 +70,7 @@ void owner_management::add_owner() {
 	string address;
 	string phone_number;
 	string email;
-	int owner_id;
 
-	int pet_id;
-
-	// if/while to provide a number ID for each owner.
-
-	do {
-		cout << "Enter a number from 1-100 to assign an ID to the pet: ";
-		cin >> owner_id;
-
-		if (owner_id < 1 || owner_id > 100) {
-			cout << "Invalid input. Please enter a number from 1-100.\n";
-		}
-	} while (owner_id < 1 || owner_id > 100);
-	// Loop continues if input is out of range
-
-   // Mapping pet_id to a new value
-	int mappedvalue = 1000 + owner_id;
-	cout << "Your owner ID is: " << mappedvalue << endl;
 
 
 	cout << "Enter owner name: ";
@@ -125,8 +104,8 @@ void owner_management::add_owner() {
 		}
 	} while (!regex_match(email, email_pattern));
 
-	std::vector<std::string> owner_data = { name, address, phone_number, email, to_string(owner_id) };
-	db.addRecord("owner", owner_data);
+	std::vector<std::string> owner_data = { name, address, phone_number, email };
+	db.addRecord("owners", owner_data);
 	cout << "Owner added successfully.\n" << endl;
 }
 
@@ -134,7 +113,7 @@ void owner_management::view_owner() {
 
 	string term;
 	cout << "Search by owner ID or Name:"; getline(cin >> ws, term);
-	auto all_owners = db.getData("owner");
+	auto all_owners = db.getData("owners");
 	for (auto& owner : all_owners) {
 		if (owner [0] == term || owner[1] == term) {
 			cout << "\nOwner ID: " << owner[0] << endl;
@@ -152,13 +131,14 @@ void owner_management::view_owner() {
 
 void owner_management::delete_owner() {
 	string owner_id;
-	cout << "Enter the owner ID to delete: "; getline(cin >> ws, owner_id);
+	cout << "Enter the owner ID to delete: ";
 	cin >> owner_id;
 	char confirm;
 	cout << "Are you sure you want to delete owner with ID" << owner_id << "? (y/n): ";
+    cin >> confirm;
 	if (tolower(confirm) == 'y') {
-		db.deleteRecord("pets", stoi(owner_id));
-		cout << "Owner deleted successfully.\n" << endl;	
+		db.deleteRecord("owners", stoi(owner_id));
+		cout << "Owner deleted successfully.\n" << endl;
 		
 	}
 	else {
@@ -166,25 +146,10 @@ void owner_management::delete_owner() {
 	}
 }
 
-//void owner_management::update_owner() {
-//	string owner_id;
-//	cout << "Enter the owner ID to update: "; getline(cin >> ws, owner_id);
-//	cin >> owner_id;
-//	char confirm;
-//	cout << "Are you sure you want to update owner with ID" << owner_id << "? (y/n): ";
-//	if (tolower(confirm) == 'y') {
-//		db.updateRecord("pets", stoi(owner_id));
-//		cout << "Owner updated successfully.\n" << endl;
-//	}
-//	else {
-//		cout << "Update cancelled.\n" << endl;
-//	}
-//}
-
 void owner_management::save_owners_to_file() {
 	ofstream file("owners.txt");
 	if (file.is_open()) {
-		auto all_owners = db.getData("owner");
+		auto all_owners = db.getData("owners");
 		for (const auto& owner : all_owners) {
 			file << owner[0] << "," << owner[1] << "," << owner[2] << "," << owner[3] << "," << owner[4] << endl;
 		}
@@ -211,7 +176,7 @@ void owner_management::load_owners_from_file() {
             getline(iss, email, ',');
             iss >> owner_id;
             vector<string> owner_data = { name, address, phone_number, email, to_string(owner_id) };
-            db.addRecord("owner", owner_data);
+            db.addRecord("owners", owner_data);
         }
         file.close();
         cout << "Owners loaded from file successfully.\n" << endl;

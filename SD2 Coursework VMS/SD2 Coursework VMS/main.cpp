@@ -65,7 +65,7 @@ void displayMainMenu() {
 
     cout << "=============================\n";
     cout << "1. Manage Pets\n";
-    cout << "2. Manage Owners (Coming Soon)\n";
+    cout << "2. Manage Owners\n";
     cout << "3. Manage Appointments\n";
     cout << "0. Exit\n";
     cout << "=============================\n";
@@ -105,7 +105,7 @@ int main() {
 
             case 3:
                 if(accessLevel > 1) {
-                    cout << "\n[!] Appointment system not implemented yet.\n\n";
+                    appointmentMenu();
                 } else {
                     cout << "=============================\n";
                     cout << "Access denied for " << name << " at access level " << accessLevel;

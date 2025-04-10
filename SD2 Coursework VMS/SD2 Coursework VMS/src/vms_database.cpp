@@ -145,6 +145,7 @@ void VMSDatabase::addRecord(string request, std::vector<std::string> fields) {
             sql = "INSERT INTO \"Pet Management\" (Name, Breed, Age, MedicalHistory, VaccinationStatus, OwnerID) VALUES (\"" + fields[0] + "\", \"" + fields[1] + "\", " + fields[2] + ", \"" + fields[3] + "\", " + fields[4] + ", " + fields[5] + ");";
         } else if (request == "owners") {
             sql = "INSERT INTO \"Owner Management\" (Name, Address, PhoneNumber, Email) VALUES (\"" + fields[0] + "\", \"" + fields[1] + "\", \"" + fields[2] + "\", \"" + fields[3] + "\");";
+            cout << sql;
         } else if (request == "appointments") {
             sql = "INSERT INTO \"Appointment Management\" (DateTime, AppointmentDetails, PetID, OwnerID) VALUES (\"" + fields[0] + "\", \"" + fields[1] + "\", " + fields[2] + ", " + fields[3] + ");";
         } else if (request == "staff") {
