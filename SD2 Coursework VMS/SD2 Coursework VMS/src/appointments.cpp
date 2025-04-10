@@ -20,9 +20,9 @@ void appointmentMenu() {
     do {
         std::cout << "\n-------- Appointment Menu --------\n";
         std::cout << "1. Schedule Appointment\n";
-        std::cout << "2. Modify Appointment\n";
-        std::cout << "3. Cancel Appointment\n";
-        std::cout << "4. View Appointments\n";
+        //std::cout << "2. Modify Appointment\n";
+        std::cout << "2. Cancel Appointment\n";
+        std::cout << "3. View Appointments\n";
         std::cout << "0. Return to Main Menu\n";
         std::cout << "----------------------------------\n";
         std::cout << "Enter choice: ";
@@ -32,13 +32,13 @@ void appointmentMenu() {
             case 1:
                 scheduleAppointment();
                 break;
+            //case 2:
+                //modifyAppointment();
+                //break;
             case 2:
-                modifyAppointment();
-                break;
-            case 3:
                 removeAppointment();
                 break;
-            case 4:
+            case 3:
                 displayAppointments();
                 break;
             case 0:
@@ -81,7 +81,7 @@ void scheduleAppointment() {
     cout << "Appointment scheduled successfully.\n";
 }
 
-void modifyAppointment() {
+/*void modifyAppointment() {
     int appointmentID;
     cout << "Enter appointment ID to modify: ";
     cin >> appointmentID;
@@ -117,7 +117,7 @@ void modifyAppointment() {
     db.getData(updateQuery);
 
     cout << "Appointment updated.\n";
-}
+}*/
 
 void removeAppointment() {
     int appointmentID;

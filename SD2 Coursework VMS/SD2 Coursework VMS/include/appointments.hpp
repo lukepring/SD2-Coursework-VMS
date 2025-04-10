@@ -24,7 +24,7 @@ extern std::vector<Appointment> appointments;
 
 void appointmentMenu();
 void scheduleAppointment();
-void modifyAppointment();
+//void modifyAppointment();
 void removeAppointment();
 void displayAppointments();
 void loadAppointmentsFromFile();
