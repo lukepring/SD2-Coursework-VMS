@@ -50,7 +50,8 @@ std::vector<std::vector<std::string>> VMSDatabase::getData(string request) {
         } else if (request == "staff") {
             sql = "SELECT * FROM \"Staff Management\";";
         } else {
-            fprintf(stderr, "VMSDatabase - Invalid request\n");
+            sql = request;
+            fprintf(stderr, "VMSDatabase - Query Sent\n");
             return results;
         }
 
