@@ -23,8 +23,8 @@ void owner_management::display_owner_menu() {
 		cout << "2. view Owners" << endl;
 		cout << "3. Delete Owner" << endl;
 //		cout << "4. Update Owner" << endl;
-		cout << "4. save owners to file\n" << endl;
-		cout << "5. load owners from files\n" << endl;
+		cout << "4. save owners to file" << endl;
+		cout << "5. load owners from files" << endl;
 		cout << "0. Return to main menu" << endl;
 		cout << "----------------------------------------" << endl;
 		cout << "Enter your choice: ";
