@@ -46,8 +46,6 @@ public:
     void load_owners_from_file();
     
     // Declare function to save owner records from file
-    void loadPetsFromFile();
-    
     void save_owners_to_file();
     
 };
