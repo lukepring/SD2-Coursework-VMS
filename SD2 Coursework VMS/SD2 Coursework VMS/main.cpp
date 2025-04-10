@@ -66,7 +66,7 @@ void displayMainMenu() {
     cout << "=============================\n";
     cout << "1. Manage Pets\n";
     cout << "2. Manage Owners (Coming Soon)\n";
-    cout << "3. Manage Appointments (Coming Soon)\n";
+    cout << "3. Manage Appointments\n";
     cout << "0. Exit\n";
     cout << "=============================\n";
     cout << "Enter your choice: ";
