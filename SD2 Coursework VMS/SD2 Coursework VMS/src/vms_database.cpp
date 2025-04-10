@@ -51,8 +51,8 @@ std::vector<std::vector<std::string>> VMSDatabase::getData(string request) {
             sql = "SELECT * FROM \"Staff Management\";";
         } else {
             sql = request;
+            cout << sql;
             fprintf(stderr, "VMSDatabase - Query Sent\n");
-            return results;
         }
 
         // Clear previous results before running the query
