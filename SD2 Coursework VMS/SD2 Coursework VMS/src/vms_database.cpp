@@ -51,8 +51,8 @@ std::vector<std::vector<std::string>> VMSDatabase::getData(string request) {
             sql = "SELECT * FROM \"Staff Management\";";
         } else {
             sql = request;
-            cout << sql;
-            fprintf(stderr, "VMSDatabase - Query Sent\n");
+            //cout << sql;
+            //fprintf(stderr, "VMSDatabase - Query Sent\n");
         }
 
         // Clear previous results before running the query
@@ -153,7 +153,7 @@ void VMSDatabase::addRecord(string request, std::vector<std::string> fields) {
             sql = "INSERT INTO \"Staff Management\" (Type, AccessLevel, Name, Passcode) VALUES (\"" + fields[0] + "\", " + fields[1] + ", \"" + fields[2] + "\", " + fields[3] + ");";
         } else {
             sql = request;
-            fprintf(stderr, "VMSDatabase - Query\n");
+            //fprintf(stderr, "VMSDatabase - Query\n");
         }
 
         // Clear previous results before running the query
@@ -194,7 +194,7 @@ void VMSDatabase::deleteRecord(string request, int id) {
             sql = "DELETE FROM \"Staff Management\" WHERE StaffID = " + std::to_string(id);
         } else {
             sql = request;
-            fprintf(stderr, "VMSDatabase - Query\n");
+            //fprintf(stderr, "VMSDatabase - Query\n");
         }
 
         // Clear previous results before running the query

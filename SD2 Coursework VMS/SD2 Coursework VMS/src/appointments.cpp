@@ -67,15 +67,15 @@ void scheduleAppointment() {
     cin >> ownerID;
 
     vector<string> fields = {
-        "'" + date + "'",
-        "'" + time + "'",
+        date,
+        time,
         "'" + details + "'",
         to_string(petID),
         to_string(ownerID),
         "'scheduled'"
     };
 
-    string query = "INSERT INTO `Appointment Management` (date, time, appointment_details, pet_id, owner_id, status) VALUES";
+    string query = "appointments";
     db.addRecord(query, fields);
 
     cout << "Appointment scheduled successfully.\n";
@@ -124,7 +124,7 @@ void removeAppointment() {
     cout << "Enter appointment ID to remove: ";
     cin >> appointmentID;
 
-    string query = "SELECT * FROM `Appointment Management` WHERE `Appointment ID` = " + to_string(appointmentID) + " LIMIT 1;";
+    string query = "SELECT * FROM `Appointment Management` WHERE `AppointmentID` = " + to_string(appointmentID) + " LIMIT 1;";
     auto result = db.getData(query);
 
     if (result.empty()) {
@@ -136,7 +136,7 @@ void removeAppointment() {
     char confirm;
     cin >> confirm;
     if (tolower(confirm) == 'y') {
-        db.deleteRecord("Appointment Management", appointmentID);
+        db.deleteRecord("appointments", appointmentID);
         cout << "Appointment removed.\n";
     } else {
         cout << "Operation cancelled.\n";
