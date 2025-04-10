@@ -30,10 +30,8 @@ public:
     // Declare the pet management menu function
     void display_owner_menu();
     
-    
-    
-    
-    // Declare function to add a owner
+
+    // Declare function to add an owner
     void add_owner();
     
     // Declare function to view a pet by ID or name
