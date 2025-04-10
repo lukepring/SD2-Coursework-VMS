@@ -1,5 +1,5 @@
 //
-//  appointments.cpp
+//  main.cpp
 //  SD2 Coursework VMS
 //
 //  Written by Jack Turner.
@@ -10,8 +10,7 @@
 
 #include <string>
 #include <vector>
-using namespace std;
- 
+
 struct Appointment {
     int id;
     std::string dateTime;
@@ -20,14 +19,15 @@ struct Appointment {
     int ownerID;
     std::string status;
 };
- 
- void appointmentMenu();
- void scheduleAppointment();
- void modifyAppointment();
- void removeAppointment();
- void displayAppointments();
- 
- #endif
 
+extern std::vector<Appointment> appointments;
 
+void appointmentMenu();
+void scheduleAppointment();
+void modifyAppointment();
+void removeAppointment();
+void displayAppointments();
+void loadAppointmentsFromFile();
+void saveAppointmentsToFile();
 
+#endif
